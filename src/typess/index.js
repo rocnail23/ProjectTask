@@ -1,3 +1,5 @@
 export const SHOW_FORM = "SHOW_FORM"
-
-
+export const GET_PROJECTS = "GET_PROJECTS"
+export const ADD_PROJECT = "ADD_PROJECT"
+export const IS_ERROR = "IS_ERROR"
+export const SET_PROJECT = "SET_PROJECT"

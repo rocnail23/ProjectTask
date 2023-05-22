@@ -13,11 +13,7 @@ const Project = () => {
       < TaskForm />
       <div className='contenedor-tareas'>
       <TaskListing/>
-      <button 
-        type='button'
-        className='btn btn-eliminar'>
-          eliminar proyect &times;
-      </button>
+     
       </div>
     </main>
     </div>

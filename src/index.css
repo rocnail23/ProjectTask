@@ -61,6 +61,7 @@ a {
   border: none;
   transition: background-color .3s ease;
 }
+
 .btn:hover {
   cursor: pointer;
 }
@@ -188,7 +189,9 @@ aside  {
   padding: 4rem;
 }
 
-
+.crear-tarea{
+  color: white;
+}
 
 .listado-tareas {
   max-width: 600px;

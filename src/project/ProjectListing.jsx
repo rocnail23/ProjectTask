@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Projectslisted from './Projectslisted'
+import ProjectContext from '../context/projects/ProjectContext'
 
 
 const ProjectListing = () => {
 
-    const projects = [
-        {name:"hacer tarea"},
-        {name:"no hacer nada"}
-    ]
+  const {projects, getProjects} = useContext(ProjectContext)
+
+ useEffect(() => {
+   getProjects()
+ },[])
+   
   return (
     <ul className='listado-proyectos'>
         {projects.map(project => (
