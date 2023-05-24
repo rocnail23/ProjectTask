@@ -1,4 +1,4 @@
-import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT } from "../../typess";
+import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT, DELETE_PROJECT } from "../../typess";
 
 export default (state,action) => {
     switch (action.type) {
@@ -24,6 +24,11 @@ export default (state,action) => {
         case SET_PROJECT : return {
             ...state,
             project: action.payload
+        }
+        case DELETE_PROJECT: return {
+            ...state,
+            projects: state.projects.filter(project => project.id != action.payload.id),
+            project: null
         }
         default:
            return state;

@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useContext,forwardRef } from 'react'
+import TaskContex from '../context/tasks/TaskContex'
 
-const Task = ({task}) => {
+const Task = forwardRef( ({task},ref) => {
+    const {deleteTask,changeStateTask,editTask} = useContext(TaskContex)
+
+
   return (
-    <li className='tarea sombra'>
-        <p>{task.name}</p>
+    <li ref={ref} className='tarea sombra'>
+        <p>{task?.name}</p>
         <div className='estado'>
             {task.state
             ? 
                 (
                     <button 
+                        onClick={() => changeStateTask(task.id)}
                         type='button'
                         className='completo'>
                             completo
@@ -17,6 +22,7 @@ const Task = ({task}) => {
             :   
                 ( 
                     <button 
+                        onClick={() => changeStateTask(task.id)}
                         type='button'
                         className='incompleto'>
                         incompleto
@@ -25,11 +31,13 @@ const Task = ({task}) => {
         </div>
         <div className='acciones'>
             <button
+                onClick={() => editTask(task)}
                 type='button'
                 className='btn btn-primario'>
                 editar
             </button>
             <button
+                onClick={() => deleteTask(task.id)}
                  type='button'
                  className='btn btn-secundario'>
                     eliminar
@@ -37,6 +45,6 @@ const Task = ({task}) => {
         </div>
     </li>
   )
-}
+})
 
 export default Task

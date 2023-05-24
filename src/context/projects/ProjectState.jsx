@@ -1,7 +1,8 @@
 import React, { useReducer } from "react";
 import ProjectContex from "./ProjectContext";
 import ProjectReduce from "./ProjectReduce";
-import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT} from "../../typess";
+import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT,DELETE_PROJECT} from "../../typess";
+import { createRef } from "react";
 
 
 
@@ -10,8 +11,10 @@ import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT} from "../.
 const ProjectState = (props) => {
 
     const projects = [
-        {name:"hacer tarea"},
-        {name:"no hacer nada"}
+        {nodeRef: createRef(null), id:1, name:"hacer tarea"},
+        {nodeRef: createRef(null), id:2, name:"no hacer nada"},
+        {nodeRef: createRef(null), id:3, name:"jugar"},
+        {nodeRef: createRef(null), id:4, name:"patear"}
     ]
 
     const initialState = {
@@ -23,7 +26,7 @@ const ProjectState = (props) => {
 
     
     const [state, dispatch] = useReducer(ProjectReduce,initialState)
-    console.log(state.projects)
+    
     const showForm = () => {
         dispatch({
           type: SHOW_FORM
@@ -57,6 +60,13 @@ const ProjectState = (props) => {
         })
     }
 
+    const deleteProject = (project) => {
+        dispatch({
+            type: DELETE_PROJECT,
+            payload: project
+        })
+    }
+
     return (
         <ProjectContex.Provider
         value={{
@@ -69,6 +79,7 @@ const ProjectState = (props) => {
            addProject,
            showError,
            selectProject,
+           deleteProject
         }}>
             {props.children}
         </ProjectContex.Provider>

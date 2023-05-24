@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext,forwardRef } from 'react'
 import ProjectContext from '../context/projects/ProjectContext'
 
-const Projectslisted = ({project}) => {
+const Projectslisted = forwardRef(({project},ref) => {
   const {selectProject} = useContext(ProjectContext)
   return (
-    <li onClick={() => selectProject(project)}>
+    <li ref={ref} onClick={() => selectProject(project)}>
         <button
         type='button'
         className='btn btn-blank'>
@@ -13,5 +13,5 @@ const Projectslisted = ({project}) => {
     </li>
   )
 }
-
+)
 export default Projectslisted
