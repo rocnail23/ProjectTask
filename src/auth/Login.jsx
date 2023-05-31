@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import alertstContex from '../context/alerts/alertsContex.jsX'
 
 const Login = () => {
+
+
+    const {showAlert, alert} = useContext(alertstContex)
      
     const [user, setUser] = useState({
         password: "",
@@ -17,10 +22,13 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        
     }
 
   return (
     <div className='form-usuario'>
+        {alert ? <div className={alert.category}>{alert.msg}</div>: null}
         <div className='contenedor-form sombra-dark'>
             <h2>iniciar sesion</h2>
             <form onSubmit={handleSubmit}>

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import alertstContex from '../context/alerts/alertsContex.jsX'
 
 const SignUp = () => {
+    
+    const {showAlert, alert} = useContext(alertstContex)
 
     const [user, setUser] = useState({
         password: "",
@@ -19,11 +23,26 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        if(user.name.trim() == ""|| user.password.trim() == ""|| user.email.trim() == ""||
+            user.password2.trim() == ""){
+                return showAlert("llena todos los campor", "alerta-error")
+            }
+
+        if(user.password.length < 6){
+            return showAlert("password de minimo de 6 caracteres", "alerta-error")
+        }    
+
+        if(user.password != user.password2){
+            return showAlert("las contraseñas son distintas", "alerta-error")
+        }
     }
 
   return (
     <div className='form-usuario'>
+        {alert ? <div className={`alerta ${alert.category}`}>{alert.msg}</div>: null}
     <div className='contenedor-form sombra-dark'>
+    
         <h2>Registrate</h2>
         <form onSubmit={handleSubmit} >
             <div className='campo-form'>
