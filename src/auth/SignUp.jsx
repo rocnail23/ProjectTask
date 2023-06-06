@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import alertstContex from '../context/alerts/alertsContex.jsX'
 import authContex from '../context/auth/authContex'
 const SignUp = (props) => {

@@ -68,17 +68,17 @@ const TaskContextProvider = (props) => {
 
  const changeStateTask = async(task) => {
  try {
-  console.log(task)
+  
   const taskeditstate = {
     name: task.name,
     _id: task._id,
     projectId: task.projectId,
     state: !task.state
   }
-  console.log(taskeditstate)
+  
 
   const res = await axiosClient.put("/api/task", taskeditstate)
-  console.log(res)
+  
   dispatch({
     type: CHANGE_STATE_TASK,
     payload: task._id
@@ -96,10 +96,10 @@ const TaskContextProvider = (props) => {
  }
 
  const updateTask = async(task) =>{
-  console.log(task)
+  
     try {
       const res = await axiosClient.put("/api/task", task)
-      console.log(res.data)
+    
       dispatch({
         type: UPDATE_TASK,
         payload: task
