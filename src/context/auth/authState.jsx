@@ -33,7 +33,7 @@ const AuthProvider = (props) => {
                 type: REGISTER_SUCCESSFUL,
                 payload: user.data.token
             })
-            console.log(user.data.token)
+         
             authenticatedUser()
         } catch (error) {
             console.log(error)
@@ -110,7 +110,7 @@ const AuthProvider = (props) => {
 
         try {
             const user = await axiosClient.post("/api/auth",dates)
-            console.log(user)
+            
             dispatch({
                 type: REGISTER_SUCCESSFUL,
                 payload: user.data.token

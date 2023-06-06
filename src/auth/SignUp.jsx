@@ -6,8 +6,8 @@ import authContex from '../context/auth/authContex'
 const SignUp = (props) => {
     
     const {showAlert, alert} = useContext(alertstContex)
-    const {registerUser,authenticated, message, navigateToProject} = useContext(authContex)
-    console.log(props)
+    const {registerUser, navigateToProject} = useContext(authContex)
+    
     const [user, setUser] = useState({
         password: "",
         email: "",

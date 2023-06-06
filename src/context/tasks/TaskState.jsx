@@ -53,9 +53,9 @@ const TaskContextProvider = (props) => {
 
   const deleteTask = async(id) => {
     try {
-      console.log(id)
+   
       const res = await axiosClient.delete(`/api/task/${id}`)
-      console.log(res)
+      
       dispatch({
         type: DELETE_TASK,
         payload: id
