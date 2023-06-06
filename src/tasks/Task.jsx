@@ -13,7 +13,7 @@ const Task = forwardRef( ({task},ref) => {
             ? 
                 (
                     <button 
-                        onClick={() => changeStateTask(task.id)}
+                        onClick={() => changeStateTask(task)}
                         type='button'
                         className='completo'>
                             completo
@@ -22,7 +22,7 @@ const Task = forwardRef( ({task},ref) => {
             :   
                 ( 
                     <button 
-                        onClick={() => changeStateTask(task.id)}
+                        onClick={() => changeStateTask(task)}
                         type='button'
                         className='incompleto'>
                         incompleto
@@ -37,7 +37,7 @@ const Task = forwardRef( ({task},ref) => {
                 editar
             </button>
             <button
-                onClick={() => deleteTask(task.id)}
+                onClick={() => deleteTask(task._id)}
                  type='button'
                  className='btn btn-secundario'>
                     eliminar

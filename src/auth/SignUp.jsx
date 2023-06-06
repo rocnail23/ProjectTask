@@ -1,18 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import alertstContex from '../context/alerts/alertsContex.jsX'
-
-const SignUp = () => {
+import authContex from '../context/auth/authContex'
+const SignUp = (props) => {
     
     const {showAlert, alert} = useContext(alertstContex)
-
+    const {registerUser,authenticated, message, navigateToProject} = useContext(authContex)
+    console.log(props)
     const [user, setUser] = useState({
         password: "",
         email: "",
         name: "",
         password2: ""
     })
+
+    navigateToProject(showAlert)
+
+   
+    const{email, password, name} = user
 
     const handleChange = (e) => {
         setUser({
@@ -26,7 +32,7 @@ const SignUp = () => {
 
         if(user.name.trim() == ""|| user.password.trim() == ""|| user.email.trim() == ""||
             user.password2.trim() == ""){
-                return showAlert("llena todos los campor", "alerta-error")
+                return showAlert("llena todos los campos", "alerta-error")
             }
 
         if(user.password.length < 6){
@@ -36,6 +42,8 @@ const SignUp = () => {
         if(user.password != user.password2){
             return showAlert("las contraseñas son distintas", "alerta-error")
         }
+
+        registerUser({name,email,password})
     }
 
   return (

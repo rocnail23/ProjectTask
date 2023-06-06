@@ -1,8 +1,10 @@
 import React, { useReducer } from "react";
 import ProjectContex from "./ProjectContext";
 import ProjectReduce from "./ProjectReduce";
-import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT,DELETE_PROJECT} from "../../typess";
+import { SHOW_FORM, GET_PROJECTS, ADD_PROJECT, IS_ERROR, SET_PROJECT,DELETE_PROJECT, ERROR_PROJECT} from "../../typess";
 import { createRef } from "react";
+import axiosClient from "../../config/axiosclient"
+import axios from "axios";
 
 
 
@@ -10,18 +12,14 @@ import { createRef } from "react";
 
 const ProjectState = (props) => {
 
-    const projects = [
-        {nodeRef: createRef(null), id:1, name:"hacer tarea"},
-        {nodeRef: createRef(null), id:2, name:"no hacer nada"},
-        {nodeRef: createRef(null), id:3, name:"jugar"},
-        {nodeRef: createRef(null), id:4, name:"patear"}
-    ]
+   
 
     const initialState = {
         projects :[],
         form : false,
         error: false,
-        project: null
+        project: null,
+        message: null
     }
 
     
@@ -33,18 +31,36 @@ const ProjectState = (props) => {
         })
     }
 
-    const getProjects = () => {
-        dispatch({
-            type: GET_PROJECTS,
-            payload: projects
-        })
+    const getProjects = async() => {
+        try {
+            const res = await axiosClient.get("/api/project")
+            const projects = res.data.map(project => {
+                return {
+                    ...project,
+                    nodeRef: createRef(null)
+                }
+            })
+            dispatch({
+                type: GET_PROJECTS,
+                payload: projects
+            })
+        } catch (error) {
+            errorProject()
+        }
     }
 
-    const addProject = (project) => {
-        dispatch({
+    const addProject = async(project) => {
+        try {
+           const res = await axiosClient.post("/api/project",project)
+         
+          res.data.nodeRef = createRef(null)
+          dispatch({
             type: ADD_PROJECT,
-            payload: project
-        })
+            payload: res.data
+          })
+        } catch (error) {
+            errorProject()
+        }
     }
 
     const showError = () => {
@@ -60,11 +76,36 @@ const ProjectState = (props) => {
         })
     }
 
-    const deleteProject = (project) => {
+    const deleteProject = async(project) => {
+       try {
+        console.log(project)
+        const res = await axiosClient.delete(`/api/project/${project._id}`)
+        
         dispatch({
             type: DELETE_PROJECT,
             payload: project
         })
+       } catch (error) {
+        console.log(error)
+        errorProject()
+        
+       }
+    }
+
+    const errorProject = () => {
+
+       const alert = "hubo un error"
+       dispatch({
+        type: ERROR_PROJECT,
+        payload: alert
+       })
+       setTimeout(() => {
+        dispatch({
+            type: ERROR_PROJECT,
+            payload: null
+        })
+       }, 2000)
+
     }
 
     return (
@@ -74,12 +115,14 @@ const ProjectState = (props) => {
            form: state.form,
            error: state.error,
            project: state.project,
+           message: state.message,
            showForm,
            getProjects,
            addProject,
            showError,
            selectProject,
-           deleteProject
+           deleteProject,
+           errorProject
         }}>
             {props.children}
         </ProjectContex.Provider>

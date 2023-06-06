@@ -16,7 +16,7 @@ const TaskForm = () => {
     }
 
     if(!editSelected){
-      task.projectId = project.id
+      task.projectId = project._id
       console.log(task)
       addTask(task)
     }else{

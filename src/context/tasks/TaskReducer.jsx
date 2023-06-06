@@ -1,30 +1,28 @@
-import { GET_TASKS,GET_TASK_BY_ID, ADD_TASK, DELETE_TASK, CHANGE_STATE_TASK, SELECT_EDIT_TASK, UPDATE_TASK} from "../../typess"
+import { GET_TASK_BY_ID, ADD_TASK, DELETE_TASK, CHANGE_STATE_TASK, SELECT_EDIT_TASK, UPDATE_TASK} from "../../typess"
 
 
 export default ((state, action) => {
 
           switch (action.type) {
-        case GET_TASKS : return {
+      
+        case GET_TASK_BY_ID:
+        return{
             ...state,
-            tasks: action.payload 
-        }
-        case GET_TASK_BY_ID: return{
-            ...state,
-            taskId: state.tasks.filter(task => task.projectId == action.payload)
+            taskId: [...action.payload]
         }
         case ADD_TASK: return {
             ...state,
             callApi: !state.callApi,
-            tasks: [...state.tasks, action.payload],
+            taskId: [...state.taskId, action.payload],
             
         }
         case DELETE_TASK: return{
             ...state,
-            tasks: state.tasks.filter(task => task.id != action.payload)
+            taskId: state.taskId.filter(task => task._id != action.payload)
         }
         case CHANGE_STATE_TASK: return {
             ...state,
-            tasks: state.tasks.map(task => task.id == action.payload ? {...task, state:!task.state}: task)
+            taskId: state.taskId.map(task => task._id == action.payload ? {...task, state:!task.state}: task)
         }
         case SELECT_EDIT_TASK: return {
             ...state,
@@ -32,7 +30,7 @@ export default ((state, action) => {
         }
         case UPDATE_TASK: return {
             ...state,
-            tasks: state.tasks.map(task => task.id == action.payload.id ? action.payload: task),
+            taskId: state.taskId.map(task => task._id == action.payload._id ? action.payload: task),
             editSelected: null
         }
     

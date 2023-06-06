@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import alertstContex from '../context/alerts/alertsContex.jsX'
+import authContex from '../context/auth/authContex'
+import { SHOW_ALERT } from '../typess'
 
 const Login = () => {
 
 
     const {showAlert, alert} = useContext(alertstContex)
-     
+    const {loggingUser,navigateToProject} = useContext(authContex)
     const [user, setUser] = useState({
         password: "",
         email: ""
@@ -20,15 +22,22 @@ const Login = () => {
         })
     }
 
+    navigateToProject(showAlert)
+
+
     const handleSubmit = (e) => {
         e.preventDefault()
+      if(user.password.trim() == "" || user.email.trim() == ""){
+        return showAlert("llena todos los campos", "alerta error")
+      }
 
+      loggingUser(user)
         
     }
 
   return (
     <div className='form-usuario'>
-        {alert ? <div className={alert.category}>{alert.msg}</div>: null}
+        {alert ? <div className={`alerta ${alert.category}`}>{alert.msg}</div>: null}
         <div className='contenedor-form sombra-dark'>
             <h2>iniciar sesion</h2>
             <form onSubmit={handleSubmit}>
@@ -56,7 +65,7 @@ const Login = () => {
                     className='btn btn-primario btn-block' />
                 </div>
             </form>
-            <Link to="/nueva cuenta" className="enlace-cuenta">
+            <Link to="/nueva-cuenta" className="enlace-cuenta">
                 conseguir cuenta
             </Link>
 

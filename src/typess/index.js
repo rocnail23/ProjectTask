@@ -5,6 +5,7 @@ export const ADD_PROJECT = "ADD_PROJECT"
 export const IS_ERROR = "IS_ERROR"
 export const SET_PROJECT = "SET_PROJECT"
 export const DELETE_PROJECT = "DELETE_PROJECT"
+export const ERROR_PROJECT = "ERROR_PROJECT"
 
 // types of task
 
