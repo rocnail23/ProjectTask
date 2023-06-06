@@ -22,7 +22,7 @@ const Login = () => {
         })
     }
 
-   
+    navigateToProject(showAlert)
 
 
     const handleSubmit = (e) => {
