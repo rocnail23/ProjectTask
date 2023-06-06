@@ -28,7 +28,7 @@ if(token){
               <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/nueva-cuenta" element={<SignUp />} />
-                <Route path="/proyectos" element={<Project />} />
+                <Route path="/proyectos" element={<PrivateRoute component={Project} />} />
               </Routes>
             
         
