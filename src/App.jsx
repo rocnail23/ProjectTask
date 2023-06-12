@@ -15,11 +15,11 @@ tokenAuth(token);
 
 
 const { authenticatedUser } = useContext(authContex);
-if(token){
+
   useEffect(() => {
     authenticatedUser();
-  }, []);
-}
+  }, [token]);
+
  
 
   return (
